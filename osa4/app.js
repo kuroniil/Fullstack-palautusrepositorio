@@ -11,6 +11,8 @@ const loginRouter = require('./controllers/login')
 const middleware = require('./utils/middleware')
 
 if (process.env.NODE_ENV === 'test') {
+  const testingRouter = require('./controllers/testing')
+  app.use('/api/testing', testingRouter)
   mongoose.connect(config.TEST_MONGODB_URI)
 } else {
   mongoose.connect(config.MONGODB_URI)

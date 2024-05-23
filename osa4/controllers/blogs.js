@@ -22,7 +22,7 @@ blogsRouter.get('/', async (request, response) => {
       url: body.url,
       author: body.author,
       likes: body.likes,
-      user: user.id
+      user: user
     })
 
     if (blog.likes === undefined) {
