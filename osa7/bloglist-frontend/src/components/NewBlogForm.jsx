@@ -1,23 +1,23 @@
-import { useState } from 'react'
+import { useState } from "react";
 
 const NewBlogForm = (props) => {
-  const [blogTitle, setBlogTitle] = useState('')
-  const [blogAuthor, setBlogAuthor] = useState('')
-  const [blogUrl, setBlogUrl] = useState('')
-  if (props.test === 'true') {
+  const [blogTitle, setBlogTitle] = useState("");
+  const [blogAuthor, setBlogAuthor] = useState("");
+  const [blogUrl, setBlogUrl] = useState("");
+  if (props.test === "true") {
     const addBlog = (event) => {
-      event.preventDefault()
+      event.preventDefault();
       props.createBlog({
         title: blogTitle,
         author: blogAuthor,
         url: blogUrl,
-      })
-    }
+      });
+    };
     return (
       <form onSubmit={addBlog}>
         <h2>create new</h2>
         <div>
-            title:
+          title:
           <input
             type="text"
             value={props.blogTitle}
@@ -27,7 +27,7 @@ const NewBlogForm = (props) => {
           />
         </div>
         <div>
-            author:
+          author:
           <input
             type="text"
             value={props.blogAuthor}
@@ -37,7 +37,7 @@ const NewBlogForm = (props) => {
           />
         </div>
         <div>
-            url:
+          url:
           <input
             type="text"
             value={props.blogUrl}
@@ -48,13 +48,13 @@ const NewBlogForm = (props) => {
         </div>
         <button type="submit">create</button>
       </form>
-    )
+    );
   } else {
     return (
       <form onSubmit={props.handleNewBlog}>
         <h2>create new</h2>
         <div>
-            title:
+          title:
           <input
             type="text"
             value={props.blogTitle}
@@ -64,7 +64,7 @@ const NewBlogForm = (props) => {
           />
         </div>
         <div>
-            author:
+          author:
           <input
             type="text"
             value={props.blogAuthor}
@@ -74,7 +74,7 @@ const NewBlogForm = (props) => {
           />
         </div>
         <div>
-            url:
+          url:
           <input
             type="text"
             value={props.blogUrl}
@@ -85,7 +85,8 @@ const NewBlogForm = (props) => {
         </div>
         <button type="submit">create</button>
       </form>
-    )}
-}
+    );
+  }
+};
 
-export default NewBlogForm
+export default NewBlogForm;
