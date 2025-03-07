@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { EntryFormProps, NewDiaryEntry, ValidationError } from "../types";
 import diaryService from "../diaryService";
 import axios from "axios";
+import Visibility from "./Visibility";
+import Weather from "./Weather";
 
 const NewEntryForm = (props: EntryFormProps) => {
     const [newDate, setNewDate] = useState('');
@@ -41,7 +43,7 @@ const NewEntryForm = (props: EntryFormProps) => {
             setNewWeather('');
             setNewComment('');
             setNewEntry({date: "", visibility: "", weather: ""});
-            setAddingError('')
+            setAddingError('');
             };
         };
 
@@ -51,22 +53,15 @@ const NewEntryForm = (props: EntryFormProps) => {
             <form onSubmit={entryCreation}>
                 <p>date
                     <input required
+                    type="date"
                     value={newDate}
                     onChange={(event) => setNewDate(event.target.value)}
+                    min="1900-01-01"
+                    max="2100-12-31" 
                     />
                 </p>
-                <p>visiblity 
-                    <input required
-                    value={newVisibility}
-                    onChange={(event) => setNewVisibility(event.target.value)}
-                    />
-                </p>
-                <p>weather
-                    <input required
-                    value={newWeather}
-                    onChange={(event) => setNewWeather(event.target.value)}
-                    />
-                </p>
+                <Visibility setNewVisibility={setNewVisibility} />
+                <Weather setNewWeather={setNewWeather} />
                 <p>comment
                     <input 
                     value={newComment}

@@ -21,3 +21,11 @@ export interface ValidationError {
     message: string;
     errors: Record<string, string[]>
 };
+
+export interface VisibilityProps {
+    setNewVisibility: React.Dispatch<React.SetStateAction<string>>
+}
+
+export interface WeatherProps {
+    setNewWeather: React.Dispatch<React.SetStateAction<string>>
+}
