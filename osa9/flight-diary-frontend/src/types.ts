@@ -16,3 +16,8 @@ export interface EntryFormProps {
     diaryEntries: DiaryEntry[];
     setDiaryEntries: React.Dispatch<React.SetStateAction<DiaryEntry[]>>;
 };
+
+export interface ValidationError {
+    message: string;
+    errors: Record<string, string[]>
+};
