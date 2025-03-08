@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
 import patientService from "../../services/patients";
-import { Gender, Entry } from "../../types";
+import { Gender, Entry, PatientInfoParams } from "../../types";
 import { useState, useEffect } from "react";
 import { Female, Male } from "@mui/icons-material";
 import PatientEntry from "./PatientEntry";
 
-const PatientInfo = () => {
+const PatientInfo = (props: PatientInfoParams) => {
     const [patientName, setPatientName] = useState<string>('');
     const [patientGender, setPatientGender] = useState<Gender>(Gender.Other);
     const [patientSsn, setPatientSsn] = useState<string>('');
@@ -39,7 +39,8 @@ const PatientInfo = () => {
                 occupation: {patientOccupation}
             </p>
             <h2>entries</h2>
-            {entries.map(entry => <PatientEntry key={entry.id} details={entry} />)}
+            {entries.map(entry => <PatientEntry key={entry.id} details={entry} 
+            diagnoses={props.diagnoses}/>)}
         </div>
     );
 };

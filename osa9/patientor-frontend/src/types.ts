@@ -70,4 +70,9 @@ export type Entry =
 
 export interface EntryProps {
   details: Entry;
-}
+  diagnoses: Diagnosis[];
+};
+
+export interface PatientInfoParams {
+  diagnoses: Diagnosis[];
+};
