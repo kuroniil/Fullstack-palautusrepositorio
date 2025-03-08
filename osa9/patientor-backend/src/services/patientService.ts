@@ -14,10 +14,15 @@ const getAllPatients = (): NonSensitivePatient[] => {
   }));
 };
 
+const getPatientById = (pid: string): Patient => {
+  return patients.filter(patient => patient.id === pid)[0];
+};
+
 const addPatient = (details: NewPatientEntry): Patient => {
   const id: string = uuid();
   const newPatient = {
     id: id,
+    entries: [],
     ...details
   };
   patients.push(newPatient);
@@ -26,5 +31,6 @@ const addPatient = (details: NewPatientEntry): Patient => {
 
 export default {
   getAllPatients,
-  addPatient
+  addPatient,
+  getPatientById
 };
