@@ -15,7 +15,15 @@ const getAllPatients = (): NonSensitivePatient[] => {
 };
 
 const getPatientById = (pid: string): Patient => {
-  return patients.filter(patient => patient.id === pid)[0];
+  const patient = patients.filter(patient => patient.id === pid)[0];
+  if (patient.entries.map(entry => entry.type === "HealthCheck" 
+    ||entry.type === "Hospital" 
+    || entry.type === "OccupationalHealthcare").every(e => e === true)) {
+      return patient;
+    }
+  else {
+    throw new Error();
+  }
 };
 
 const addPatient = (details: NewPatientEntry): Patient => {
