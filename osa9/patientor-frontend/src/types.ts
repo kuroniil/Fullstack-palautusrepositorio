@@ -76,3 +76,18 @@ export interface EntryProps {
 export interface PatientInfoParams {
   diagnoses: Diagnosis[];
 };
+
+export interface HealthCheckEntryProps {
+  details: HealthCheckEntry;
+  diagnoses: Diagnosis[];
+};
+
+export interface HospitalEntryProps {
+  details: HospitalEntry;
+  diagnoses: Diagnosis[];
+};
+
+export interface OccupationalHealthcareEntryProps {
+  details: OccupationalHealthcareEntry;
+  diagnoses: Diagnosis[];
+}

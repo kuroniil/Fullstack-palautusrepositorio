@@ -3,7 +3,7 @@ import patientService from "../../services/patients";
 import { Gender, Entry, PatientInfoParams } from "../../types";
 import { useState, useEffect } from "react";
 import { Female, Male } from "@mui/icons-material";
-import PatientEntry from "./PatientEntry";
+import PatientEntry from "./patientEntries";
 
 const PatientInfo = (props: PatientInfoParams) => {
     const [patientName, setPatientName] = useState<string>('');
