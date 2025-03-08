@@ -1,14 +1,16 @@
 import { useParams } from "react-router-dom";
 import patientService from "../../services/patients";
-import { Gender } from "../../types";
+import { Gender, Entry } from "../../types";
 import { useState, useEffect } from "react";
 import { Female, Male } from "@mui/icons-material";
+import PatientEntry from "./PatientEntry";
 
 const PatientInfo = () => {
     const [patientName, setPatientName] = useState<string>('');
     const [patientGender, setPatientGender] = useState<Gender>(Gender.Other);
     const [patientSsn, setPatientSsn] = useState<string>('');
     const [patientOccupation, setPatientOccupation] = useState<string>('');
+    const [entries, setEntries] = useState<Entry[]>([])
     const tempId = useParams().id;
 
     useEffect(() => {
@@ -20,6 +22,7 @@ const PatientInfo = () => {
             const ssn = tempSsn === undefined ? '' : tempSsn;
             setPatientSsn(ssn);
             setPatientOccupation(response.occupation);
+            setEntries(response.entries)
         });
     }, []);
 
@@ -35,6 +38,8 @@ const PatientInfo = () => {
             <p>
                 occupation: {patientOccupation}
             </p>
+            <h2>entries</h2>
+            {entries.map(entry => <PatientEntry key={entry.id} details={entry} />)}
         </div>
     );
 };
