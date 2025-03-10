@@ -91,3 +91,23 @@ export interface OccupationalHealthcareEntryProps {
   details: OccupationalHealthcareEntry;
   diagnoses: Diagnosis[];
 }
+
+export interface BaseEntryProps {
+  pid: string;
+  newEntrySubmit: (newEntry: Entry) => void;
+}
+
+export interface NewEntryProps {
+  setNewEntry: React.Dispatch<React.SetStateAction<string>>;
+  newEntrySubmit: (newEntry: Entry) => void;
+  pid: string;
+};
+
+type UnionOmit<T, K extends string | number | symbol> = T extends unknown ? Omit<T, K> : never;
+
+export type EntryFormValues = UnionOmit<Entry, 'id'>;
+
+export interface ValidationError {
+  message: string;
+  error: Array<Record<string, string[]>>
+};

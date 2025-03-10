@@ -15,8 +15,7 @@ router.get('/:id', (_req, res: Response) => {
 });
 
 const newEntryParser = (req: Request<{ id: string }, unknown, Entry>, _res: Response, next: NextFunction) => {
-    try {
-        
+    try {  
         switch (req.body.type) {
             case "Hospital":
                 newHospitalEntrySchema.parse(req.body);

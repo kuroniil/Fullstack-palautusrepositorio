@@ -4,6 +4,7 @@ import { Gender, Entry, PatientInfoParams } from "../../types";
 import { useState, useEffect } from "react";
 import { Female, Male } from "@mui/icons-material";
 import PatientEntry from "./patientEntries";
+import NewEntryForm from "./patientEntries/NewEntryForm";
 
 const PatientInfo = (props: PatientInfoParams) => {
     const [patientName, setPatientName] = useState<string>('');
@@ -11,10 +12,12 @@ const PatientInfo = (props: PatientInfoParams) => {
     const [patientSsn, setPatientSsn] = useState<string>('');
     const [patientOccupation, setPatientOccupation] = useState<string>('');
     const [entries, setEntries] = useState<Entry[]>([])
+    const [pid, setPid] = useState<string>('')
     const tempId = useParams().id;
 
     useEffect(() => {
         const id = tempId === undefined ? '' : tempId;
+        setPid(id)
         patientService.getById(id).then(response => {
             setPatientName(response.name);
             setPatientGender(response.gender);
@@ -25,6 +28,10 @@ const PatientInfo = (props: PatientInfoParams) => {
             setEntries(response.entries)
         });
     }, []);
+
+    const newEntrySubmit = (newEntry: Entry) => {
+        setEntries(entries.concat(newEntry));
+    };
 
     return (
         <div>
@@ -38,6 +45,10 @@ const PatientInfo = (props: PatientInfoParams) => {
             <p>
                 occupation: {patientOccupation}
             </p>
+            <details style={{padding: "0.5em", cursor: "pointer"}}>
+                <summary>Add new entry</summary>
+                <NewEntryForm pid={pid} newEntrySubmit={newEntrySubmit}/>
+            </details>
             <h2>entries</h2>
             {entries.map(entry => <PatientEntry key={entry.id} details={entry} 
             diagnoses={props.diagnoses}/>)}

@@ -15,9 +15,9 @@ const toNewPatientEntry = (object: unknown): NewPatientEntry => {
 
 export const newHospitalEntrySchema = z.object({
     description: z.string(),
-    date: z.string(),
+    date: z.string().date(),
     specialist: z.string(),
-    diagnosisCodes: z.string().array(),
+    diagnosisCodes: z.string().array().optional(),
     discharge: z.object({
         date: z.string().date(),
         criteria: z.string()
@@ -26,7 +26,7 @@ export const newHospitalEntrySchema = z.object({
 
 export const newHealthCheckEntrySchema = z.object({
     description: z.string(),
-    date: z.string(),
+    date: z.string().date(),
     specialist: z.string(),
     diagnosisCodes: z.string().array().optional(),
     healthCheckRating: z.nativeEnum(HealthCheckRating)
@@ -34,9 +34,9 @@ export const newHealthCheckEntrySchema = z.object({
 
 export const newOccupationalHealthcareEntrySchema = z.object({
     description: z.string(),
-    date: z.string(),
+    date: z.string().date(),
     specialist: z.string(),
-    diagnosisCodes: z.string().array(),
+    diagnosisCodes: z.string().array().optional(),
     employerName: z.string()
 });
 

@@ -47,10 +47,6 @@ const PatientListPage = ({ patients, setPatients } : Props ) => {
       }
     }
   };
-
-  //const handlePatientClick = (id: string) => {
-  //  
-  //}
   
   return (
     <div className="App">

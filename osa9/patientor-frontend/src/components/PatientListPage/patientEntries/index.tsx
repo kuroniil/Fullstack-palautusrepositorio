@@ -26,16 +26,7 @@ const PatientEntry = (props: EntryProps) => {
             return <OccupationalEntry details={props.details} diagnoses={diagnoses} />
         default:
             return assertNever(props.details)
-    }
-    return (
-        <div>
-            {props.details.date} <i>{props.details.description}</i>
-            {props.details.diagnosisCodes && 
-            <ul>
-                {diagnoses && diagnoses.map((d, index) => <li key={index}>{d.code} {d.name}</li>)}
-            </ul>}
-        </div>
-        );
+    };
 };
 
 export default PatientEntry;
