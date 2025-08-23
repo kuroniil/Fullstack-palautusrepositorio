@@ -1,26 +1,26 @@
-import { Card, Button, TextField, Alert } from "@mui/material";
+import { Card, Button, TextField, Alert, Input, InputLabel, Select, MenuItem } from "@mui/material";
 import React, { useState } from "react";
 import { NewEntryProps, ValidationError } from "../../../types";
 import patientService from '../../../services/patients';
 import axios from "axios";
+import diagnosisCodes from '../../../../../patientor-backend/data/diagnoses';
 
 const NewHealthCheckEntryForm = (props: NewEntryProps) => {
     const [description, setDescription] = useState<string>('');
     const [date, setDate] = useState<string>('');
     const [specialist, setSpecialist] = useState<string>('');
     const [rating, setRating] = useState<number>(0);
-    const [diagnoses, setDiagnoses] = useState<string>('');
+    const [diagnoses, setDiagnoses] = useState<string[]>([]);
     const [errorMessage, setErrorMessage] = useState<string>('');
 
     const handleSubmit = async (event: React.SyntheticEvent) => {
         event.preventDefault();
-        const diag = diagnoses !== "" ? diagnoses.split(", ") : []
         const entry = await patientService.createEntry({
             description: description,
             date: date,
             specialist: specialist,
             healthCheckRating: rating,
-            diagnosisCodes: diag,
+            diagnosisCodes: diagnoses,
             type: "HealthCheck"
         }, props.pid)
         .catch(error => {
@@ -41,10 +41,15 @@ const NewHealthCheckEntryForm = (props: NewEntryProps) => {
             setDate('');
             setSpecialist('');
             setRating(0);
-            setDiagnoses('');
+            setDiagnoses([]);
             props.setNewEntry('');
             setErrorMessage('')
         };
+    };
+
+    const formFieldStyle = {
+        paddingTop: "0.5em",
+        paddingBottom: "0.5em"
     };
 
     return (
@@ -57,35 +62,52 @@ const NewHealthCheckEntryForm = (props: NewEntryProps) => {
             <Card style={{padding: "1em", marginTop: "1em", border: "dotted 2px black"}}>
                 <form onSubmit={handleSubmit}>
                     <h3>New HealthCheck entry</h3>
-                    <p>
-                        Description
-                    </p>
-                        <TextField style={{width: "100%"}}
-                        onChange={({ target }) => setDescription(target.value)}
+                    <div style={formFieldStyle}>
+                        <InputLabel>Description</InputLabel>
+                        <TextField 
+                            style={{width: "100%"}}
+                            onChange={({ target }) => setDescription(target.value)}
+						    variant="standard"    
                         />
-                    <p>
-                        Date
-                    </p>
-                    <TextField style={{width: "100%"}}
-                        onChange={({ target }) => setDate(target.value)}
+                    </div>
+                    <div style={formFieldStyle}>
+                        <InputLabel>Specialist</InputLabel>
+                        <TextField 
+                            style={{width: "100%"}}
+                            onChange={({ target }) => setSpecialist(target.value)}
+					    	variant="standard"
                         />
-                    <p>
-                        Specialist
-                    </p>
-                    <TextField style={{width: "100%"}}
-                        onChange={({ target }) => setSpecialist(target.value)}
+                    </div>
+                    <div style={formFieldStyle}>
+                        <InputLabel>Diagnosis codes</InputLabel>
+                        <Select multiple
+                            value={diagnoses}
+                            style={{width: "100%"}}
+                            onChange={({ target }) => setDiagnoses(diagnoses.concat(target.value))}
+                            >
+                            {diagnosisCodes.map((d, i) => 
+                                <MenuItem 
+                                    value={d.code} 
+                                    key={i}>{d.code}
+                                </MenuItem>)
+                            }
+                        </Select>
+                    </div>
+                    <div style={formFieldStyle}>
+                        <InputLabel>Date</InputLabel>
+                        <Input 
+                            type="Date"
+                            onChange={({ target }) => setDate(target.value)}
                         />
-                    <p>
-                        HealthCheck rating                    
-                    </p>
-                    <input type="number" onChange={({ target }) => setRating(parseInt(target.value))} style={{width: "100%", height: "50px"}} />
-
-                    <p>
-                        Diagnosis codes
-                    </p>
-                    <TextField style={{width: "100%"}}
-                    onChange={({ target }) => setDiagnoses(target.value)}
-                    />
+                    </div>
+                    <div style={formFieldStyle}>
+                        <InputLabel>HealthCheck rating</InputLabel>
+                        <Input 
+                            type="number"
+                            onChange={({ target }) => setRating(parseInt(target.value))} 
+                            style={{width: "100%", height: "30px", marginTop: "15px"}} 
+                        />
+                    </div>
                     <br></br>
                     <br></br>
                     <Button onClick={() => props.setNewEntry('')} variant="contained" color="error">Cancel</Button>

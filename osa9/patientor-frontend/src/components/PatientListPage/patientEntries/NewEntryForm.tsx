@@ -23,18 +23,30 @@ const NewEntryForm = (props: BaseEntryProps) => {
     return (
         <div style={{marginTop: "1em"}}>
             <Button variant="contained" onClick={handleHospitalClick}>Hospital entry</Button>
-            <Button style={{marginLeft: "0.5em"}} variant="contained">
+            <Button style={{marginLeft: "0.5em"}} onClick={handleOccupationalClick} variant="contained">
                 Occupational healthcare entry
             </Button>
             <Button onClick={handleHealthCheckClick} style={{marginLeft: "0.5em"}} variant="contained">
                 Health check entry
             </Button>
             {newEntry === 'hospital'
-            ? <NewHospitalEntryForm setNewEntry={setNewEntry} pid={props.pid} newEntrySubmit={props.newEntrySubmit}/>
+            ? <NewHospitalEntryForm 
+                setNewEntry={setNewEntry} 
+                pid={props.pid} 
+                newEntrySubmit={props.newEntrySubmit} 
+                />
             : newEntry === 'occupational'
-            ? <NewOccupationalEntryForm setNewEntry={setNewEntry} pid={props.pid} newEntrySubmit={props.newEntrySubmit}/>
+            ? <NewOccupationalEntryForm 
+                setNewEntry={setNewEntry} 
+                pid={props.pid} 
+                newEntrySubmit={props.newEntrySubmit}
+                />
             : newEntry === 'health check'
-            ? <NewHealthCheckEntryForm setNewEntry={setNewEntry} pid={props.pid} newEntrySubmit={props.newEntrySubmit}/>
+            ? <NewHealthCheckEntryForm 
+                setNewEntry={setNewEntry} 
+                pid={props.pid} 
+                newEntrySubmit={props.newEntrySubmit}
+                />
             : ""}
         </div>
     )
