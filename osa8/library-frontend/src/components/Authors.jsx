@@ -1,0 +1,35 @@
+import { useQuery } from "@apollo/client/react";
+import { ALL_AUTHORS } from "../queries.js";
+
+const Authors = (props) => {
+  const authors =
+    useQuery(ALL_AUTHORS, { pollInterval: 2000 })?.data?.allAuthors || [];
+  if (!props.show) {
+    return null;
+  }
+
+  return (
+    <div>
+      <h2>authors</h2>
+      <table>
+        <tbody>
+          <tr>
+            <th></th>
+            <th>born</th>
+            <th>books</th>
+          </tr>
+          {authors.map((a, i) => (
+            <tr key={i}>
+              {/*forgot to add id to authors query in backend*/}
+              <td>{a.name}</td>
+              <td>{a.born}</td>
+              <td>{a.bookCount}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default Authors;
