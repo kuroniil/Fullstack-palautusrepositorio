@@ -168,7 +168,7 @@ const resolvers = {
         return null;
       } else {
         const updatedAuthor = { ...author, born: args.setBornTo };
-        authors = authors.filter((a) => a.name === author.name);
+        authors = authors.filter((a) => a.name !== author.name);
         authors = authors.concat(updatedAuthor);
         return updatedAuthor;
       }
