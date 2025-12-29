@@ -1,12 +1,20 @@
 import { useQuery } from "@apollo/client/react";
 import { ALL_BOOKS_WITH_GENRE, ME } from "../queries";
+import { useEffect, useState } from "react";
 
 const Recommendations = (props) => {
+  const [books, setBooks] = useState([]);
   const user = useQuery(ME)?.data?.me;
-
   const filteredBooks = useQuery(ALL_BOOKS_WITH_GENRE, {
-    variables: { genre: user?.data?.me.favoriteGenre || "" },
+    variables: { genre: user?.favoriteGenre },
+    skip: !user?.favoriteGenre,
   })?.data;
+
+  useEffect(() => {
+    if (user) {
+      setBooks(filteredBooks?.allBooks);
+    }
+  }, [filteredBooks, user]);
 
   if (!props.show) {
     return null;
@@ -18,7 +26,7 @@ const Recommendations = (props) => {
       <p>
         books in your favorite genre <b>{user?.favoriteGenre}</b>
       </p>
-      {filteredBooks.allBooks.map((b) => (
+      {books.map((b) => (
         <p key={b.id}>{b.title}</p>
       ))}
     </div>
