@@ -14,7 +14,7 @@ const Books = (props) => {
         variables: {
           genre: selectedGenre,
         },
-        pollInterval: 2000,
+        pollInterval: 300,
       })?.data?.allBooks || []
     : useQuery(ALL_BOOKS, { pollInterval: 2000 })?.data?.allBooks || [];
 
