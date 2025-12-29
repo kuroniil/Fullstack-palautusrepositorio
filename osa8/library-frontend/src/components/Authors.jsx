@@ -34,9 +34,8 @@ const Authors = (props) => {
             <th>born</th>
             <th>books</th>
           </tr>
-          {authors.map((a, i) => (
-            <tr key={i}>
-              {/*forgot to add id to authors query in backend*/}
+          {authors.map((a) => (
+            <tr key={a.id}>
               <td>{a.name}</td>
               <td>{a.born}</td>
               <td>{a.bookCount}</td>

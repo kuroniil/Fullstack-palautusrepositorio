@@ -6,6 +6,7 @@ export const ALL_AUTHORS = gql`
       name
       bookCount
       born
+      id
     }
   }
 `;
@@ -13,11 +14,27 @@ export const ALL_AUTHORS = gql`
 export const ALL_BOOKS = gql`
   query {
     allBooks {
+      id
       title
       published
       author {
         name
       }
+      genres
+    }
+  }
+`;
+
+export const ALL_BOOKS_WITH_GENRE = gql`
+  query ($genre: String!) {
+    allBooks(genre: $genre) {
+      id
+      title
+      published
+      author {
+        name
+      }
+      genres
     }
   }
 `;
