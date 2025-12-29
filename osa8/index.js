@@ -112,7 +112,7 @@ const resolvers = {
         return book.save();
       }
     },
-    editAuthor: async (root, args) => {
+    editAuthor: async (root, args, context) => {
       if (context.currentUser) {
         const author = await Author.findOne({ name: args.name });
         if (!author) {
