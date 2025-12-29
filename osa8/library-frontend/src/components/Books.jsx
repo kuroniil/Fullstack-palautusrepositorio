@@ -24,7 +24,7 @@ const Books = (props) => {
             <tr key={i}>
               {/*forgot to add id to books query in backend as well*/}
               <td>{a.title}</td>
-              <td>{a.author}</td>
+              <td>{a.author.name}</td>
               <td>{a.published}</td>
             </tr>
           ))}
