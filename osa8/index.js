@@ -1,4 +1,5 @@
 const { ApolloServer } = require("@apollo/server");
+const { GraphQLError } = require("graphql");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const jwt = require("jsonwebtoken");
 
@@ -101,7 +102,15 @@ const resolvers = {
         let author = await Author.findOne({ name: args.author });
         if (!author) {
           author = new Author({ name: args.author, bookCount: 1 });
-          await author.save();
+          await author.save().catch((error) => {
+            throw new GraphQLError("Invalid author name", {
+              extensions: {
+                code: "BAD_USER_INPUT",
+                invalidArgs: args.author,
+                error,
+              },
+            });
+          });
         }
         const book = new Book({
           title: args.title,
@@ -109,7 +118,15 @@ const resolvers = {
           author: author,
           genres: args.genres,
         });
-        return book.save();
+        return book.save().catch((error) => {
+          throw new GraphQLError("Invalid book title", {
+            extensions: {
+              code: "BAD_USER_INPUT",
+              invalidArgs: args.title,
+              error,
+            },
+          });
+        });
       }
     },
     editAuthor: async (root, args, context) => {
@@ -119,7 +136,15 @@ const resolvers = {
           return null;
         } else {
           author.born = args.setBornTo;
-          return author.save();
+          return author.save().catch((error) => {
+            throw new GraphQLError("Invalid author born date", {
+              extensions: {
+                code: "BAD_USER_INPUT",
+                invalidArgs: args.setBornTo,
+                error,
+              },
+            });
+          });
         }
       }
     },

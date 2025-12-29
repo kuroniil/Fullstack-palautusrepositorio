@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const today = new Date();
+const thisYear = today.getFullYear();
 
 const schema = new mongoose.Schema({
   name: {
@@ -9,6 +11,7 @@ const schema = new mongoose.Schema({
   },
   born: {
     type: Number,
+    max: thisYear,
   },
 });
 
